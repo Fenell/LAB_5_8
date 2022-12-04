@@ -1,0 +1,36 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+namespace A_DAL.DomainModels
+{
+    [Table("Khachhang")]
+    public partial class Khachhang
+    {
+        public Khachhang()
+        {
+            Donhangs = new HashSet<Donhang>();
+        }
+
+        [Key]
+        [Column("KhachhangID")]
+        public int KhachhangId { get; set; }
+        [StringLength(255)]
+        public string? HoTen { get; set; }
+        [StringLength(255)]
+        public string? TenLienLac { get; set; }
+        [StringLength(255)]
+        public string? Diachi { get; set; }
+        [StringLength(255)]
+        public string? Thanhpho { get; set; }
+        [StringLength(255)]
+        public string? MaBuudien { get; set; }
+        [StringLength(255)]
+        public string? QuocGia { get; set; }
+
+        [InverseProperty("Khachhang")]
+        public virtual ICollection<Donhang> Donhangs { get; set; }
+    }
+}
