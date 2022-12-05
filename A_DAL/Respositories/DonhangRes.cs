@@ -47,18 +47,22 @@ namespace A_DAL.Respositories
             donhang.ShipperId = obj.ShipperId;
             donhang.Ngaydathang = obj.Ngaydathang;
             _qlbhContext.Donhangs.Update(donhang);
+            _qlbhContext.SaveChanges();
             return true;
         }
 
         public bool DeleteDonHang(Donhang obj)
         {
             var donhang = _qlbhContext.Donhangs.FirstOrDefault(c => c.DonhangId == obj.DonhangId);
+            var cTDonHang = _qlbhContext.DonhangChitiets.Where(c => c.DonhangId == obj.DonhangId);
             if (donhang == null)
             {
                 return false;
             }
 
+            _qlbhContext.RemoveRange(cTDonHang);
             _qlbhContext.Donhangs.Remove(donhang);
+            _qlbhContext.SaveChanges();
             return true;
         }
     }
